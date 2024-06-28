@@ -35,6 +35,7 @@ public class OrderController {
      * @param storeId      : 주문 등록 할 가게의 Id
      * @param orderRequest : 등록할 주문 정보
      * @return : 등록 주문 정보
+     *
      */
     @PostMapping("/stores/{storeId}/order")
     public ResponseEntity<DataCommonResponse<OrderResponseDto>> createOrder(
