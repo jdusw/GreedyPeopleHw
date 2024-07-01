@@ -4,7 +4,8 @@ import com.sparta.greeypeople.auth.security.UserDetailsImpl;
 import com.sparta.greeypeople.common.DataCommonResponse;
 import com.sparta.greeypeople.common.StatusCommonResponse;
 import com.sparta.greeypeople.review.dto.request.ReviewRequestDto;
-import com.sparta.greeypeople.review.dto.response.ReviewResponseDto;
+import com.sparta.greeypeople.review.dto.response.ReviewDetailResponseDto;
+import com.sparta.greeypeople.review.dto.response.ReviewsResponseDto;
 import com.sparta.greeypeople.review.service.ReviewService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -34,13 +35,13 @@ public class ReviewController {
      * @return : 등록된 리뷰 정보
      */
     @PostMapping("/stores/{storeId}/review")
-    public ResponseEntity<DataCommonResponse<ReviewResponseDto>> createReview(
+    public ResponseEntity<DataCommonResponse<ReviewsResponseDto>> createReview(
         @PathVariable Long storeId,
         @Valid @RequestBody ReviewRequestDto reviewRequestDto,
         @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ReviewResponseDto responseDto = reviewService.createReview(reviewRequestDto, storeId,
+        ReviewsResponseDto responseDto = reviewService.createReview(reviewRequestDto, storeId,
             userDetails.getUser());
-        DataCommonResponse<ReviewResponseDto> response = new DataCommonResponse<>(201, "리뷰 등록 성공",
+        DataCommonResponse<ReviewsResponseDto> response = new DataCommonResponse<>(201, "리뷰 등록 성공",
             responseDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -53,12 +54,12 @@ public class ReviewController {
      * @return : 등록된 리뷰 정보
      */
     @GetMapping("/stores/{storeId}/reviews/{reviewId}")
-    public ResponseEntity<DataCommonResponse<ReviewResponseDto>> getReview(
+    public ResponseEntity<DataCommonResponse<ReviewDetailResponseDto>> getReview(
         @PathVariable Long storeId,
         @PathVariable Long reviewId
     ) {
-        ReviewResponseDto review = reviewService.getReview(storeId, reviewId);
-        DataCommonResponse<ReviewResponseDto> response = new DataCommonResponse<>(200,
+        ReviewDetailResponseDto review = reviewService.getReview(storeId, reviewId);
+        DataCommonResponse<ReviewDetailResponseDto> response = new DataCommonResponse<>(200,
             "리뷰 조회 단건 성공", review);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -70,10 +71,10 @@ public class ReviewController {
      * @return : 등록된 리뷰 정보
      */
     @GetMapping("/stores/{storeId}/reviews")
-    public ResponseEntity<DataCommonResponse<List<ReviewResponseDto>>> getAllReviews(
+    public ResponseEntity<DataCommonResponse<List<ReviewsResponseDto>>> getAllReviews(
         @PathVariable Long storeId) {
-        List<ReviewResponseDto> reviews = reviewService.getAllReviews(storeId);
-        DataCommonResponse<List<ReviewResponseDto>> response = new DataCommonResponse<>(200,
+        List<ReviewsResponseDto> reviews = reviewService.getAllReviews(storeId);
+        DataCommonResponse<List<ReviewsResponseDto>> response = new DataCommonResponse<>(200,
             "리뷰 조회 전체 성공", reviews);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -87,15 +88,15 @@ public class ReviewController {
      * @return : 등록된 리뷰 정보
      */
     @PutMapping("/stores/{storeId}/reviews/{reviewId}")
-    public ResponseEntity<DataCommonResponse<ReviewResponseDto>> updateReview(
+    public ResponseEntity<DataCommonResponse<ReviewsResponseDto>> updateReview(
         @PathVariable Long storeId,
         @PathVariable Long reviewId,
         @Valid @RequestBody ReviewRequestDto reviewRequestDto,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        ReviewResponseDto responseDto = reviewService.updateReview(storeId, reviewId,
+        ReviewsResponseDto responseDto = reviewService.updateReview(storeId, reviewId,
             reviewRequestDto, userDetails.getUser());
-        DataCommonResponse<ReviewResponseDto> response = new DataCommonResponse<>(200, "리뷰 수정 성공",
+        DataCommonResponse<ReviewsResponseDto> response = new DataCommonResponse<>(200, "리뷰 수정 성공",
             responseDto);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

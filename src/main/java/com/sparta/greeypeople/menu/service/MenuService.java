@@ -2,6 +2,7 @@ package com.sparta.greeypeople.menu.service;
 
 import com.sparta.greeypeople.exception.DataNotFoundException;
 import com.sparta.greeypeople.menu.dto.response.AdminMenuResponseDto;
+import com.sparta.greeypeople.menu.dto.response.MenuDetailResponseDto;
 import com.sparta.greeypeople.menu.entity.Menu;
 import com.sparta.greeypeople.menu.repository.MenuRepository;
 import com.sparta.greeypeople.store.entity.Store;
@@ -17,6 +18,14 @@ public class MenuService {
 
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;
+
+    public MenuDetailResponseDto getMenu(Long storeId, Long menuId) {
+        findStore(storeId);
+         Menu menu = menuRepository.findById(menuId).orElseThrow(
+            () -> new DataNotFoundException("조회된 메뉴의 정보가 없습니다")
+        );
+        return new MenuDetailResponseDto(menu);
+    }
 
     public List<AdminMenuResponseDto> getStoreMenu(Long storeId) {
         findStore(storeId);

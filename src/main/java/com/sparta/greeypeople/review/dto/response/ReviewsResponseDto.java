@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
-public class ReviewResponseDto {
+public class ReviewsResponseDto {
 
     private final String content;
     private final LocalDateTime updateAt;
 
-    public ReviewResponseDto(Review review) {
+    public ReviewsResponseDto(Review review) {
         this.content = review.getContent();
         this.updateAt = review.getModifiedAt();
     }
