@@ -5,6 +5,8 @@ import com.sparta.greeypeople.profile.dto.request.ProfileRequestDto;
 import com.sparta.greeypeople.profile.dto.response.ProfileResponseDto;
 import com.sparta.greeypeople.profile.entity.PasswordList;
 import com.sparta.greeypeople.profile.repository.PasswordListRepository;
+import com.sparta.greeypeople.profile.repository.likes.Review.LikesReviewRepository;
+import com.sparta.greeypeople.profile.repository.likes.menu.LikesMenuRepository;
 import com.sparta.greeypeople.user.entity.User;
 import com.sparta.greeypeople.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,16 +25,22 @@ public class ProfileService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final PasswordListRepository passwordListRepository;
+    private final LikesMenuRepository likesMenuRepository;
+    private final LikesReviewRepository likesReviewRepository;
 
-    public ProfileService(UserRepository userRepository, PasswordEncoder passwordEncoder, PasswordListRepository passwordListRepository) {
+    public ProfileService(UserRepository userRepository, PasswordEncoder passwordEncoder, PasswordListRepository passwordListRepository, LikesMenuRepository likesMenuRepository, LikesReviewRepository likesReviewRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.passwordListRepository = passwordListRepository;
+        this.likesMenuRepository = likesMenuRepository;
+        this.likesReviewRepository = likesReviewRepository;
     }
 
     @Transactional(readOnly = true)
     public ProfileResponseDto getProfile(User user) {
-        return new ProfileResponseDto(user);
+        Long likesMenuCount = likesMenuRepository.getMenuCount(user.getId());
+        Long likesReviewCount = likesReviewRepository.getReviewCount(user.getId());
+        return new ProfileResponseDto(user, likesMenuCount, likesReviewCount);
     }
 
     @Transactional
