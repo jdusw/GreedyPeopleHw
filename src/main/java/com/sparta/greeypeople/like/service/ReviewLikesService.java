@@ -5,7 +5,7 @@ import com.sparta.greeypeople.exception.DataNotFoundException;
 import com.sparta.greeypeople.exception.ForbiddenException;
 import com.sparta.greeypeople.exception.ViolatedException;
 import com.sparta.greeypeople.like.entity.ReviewLikes;
-import com.sparta.greeypeople.like.repository.ReviewLikesRepository;
+import com.sparta.greeypeople.like.repository.ReviewLikes.ReviewLikesRepository;
 import com.sparta.greeypeople.review.entity.Review;
 import com.sparta.greeypeople.review.repository.ReviewRepository;
 import com.sparta.greeypeople.store.entity.Store;

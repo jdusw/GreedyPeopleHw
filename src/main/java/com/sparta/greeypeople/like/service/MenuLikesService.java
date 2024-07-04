@@ -5,7 +5,7 @@ import com.sparta.greeypeople.exception.DataNotFoundException;
 import com.sparta.greeypeople.exception.ForbiddenException;
 import com.sparta.greeypeople.exception.ViolatedException;
 import com.sparta.greeypeople.like.entity.MenuLikes;
-import com.sparta.greeypeople.like.repository.MenuLikesRepository;
+import com.sparta.greeypeople.like.repository.MenuLikes.MenuLikesRepository;
 import com.sparta.greeypeople.menu.entity.Menu;
 import com.sparta.greeypeople.menu.repository.MenuRepository;
 import com.sparta.greeypeople.store.entity.Store;
